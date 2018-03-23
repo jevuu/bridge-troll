@@ -25,10 +25,23 @@ const unlockedSvg = fs.readFileSync(
   __dirname + '/../icons/material-icons/unlocked.svg'
 );
 
+const locationNightSvg = fs.readFileSync(
+  __dirname + '/../icons/material-icons/location_night.svg'
+);
+const lockedNightSvg = fs.readFileSync(
+  __dirname + '/../icons/material-icons/locked_night.svg'
+);
+const unlockedNightSvg = fs.readFileSync(
+  __dirname + '/../icons/material-icons/unlocked_night.svg'
+);
+
 // Generate Data URLs for each, so we can pass them to Leaflet below
 const locationUrl = generateSvgUrl(locationSvg);
 const lockedUrl = generateSvgUrl(lockedSvg);
 const unlockedUrl = generateSvgUrl(unlockedSvg);
+const locationNightUrl = generateSvgUrl(locationNightSvg);
+const lockedNightUrl = generateSvgUrl(lockedNightSvg);
+const unlockedNightUrl = generateSvgUrl(unlockedNightSvg);
 
 // All icons share the same size, define it once
 const iconSize = [25, 25];
@@ -46,5 +59,20 @@ module.exports.locked = leaflet.icon({
 
 module.exports.unlocked = leaflet.icon({
   iconUrl: unlockedUrl,
+  iconSize
+});
+
+module.exports.locationNight = leaflet.icon({
+  iconUrl: locationNightUrl,
+  iconSize
+});
+
+module.exports.lockedNight = leaflet.icon({
+  iconUrl: lockedNightUrl,
+  iconSize
+});
+
+module.exports.unlockedNight = leaflet.icon({
+  iconUrl: unlockedNightUrl,
   iconSize
 });

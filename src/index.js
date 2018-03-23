@@ -4,6 +4,7 @@ const geo = require('./geo');
 const map = require('./map');
 const log = require('./log');
 const svgMarker = require('./svg-marker');
+const dayNight = require('./daynight');
 
 const Bridge = require('./bridge');
 const bridges = {};
@@ -32,13 +33,23 @@ map.on('update', bounds => {
     };
 
     // Add a new marker to the map for this bridge
-    bridge.marker = map.addMarker(
-      bridge.lat,
-      bridge.lng,
-      bridge.title,
-      svgMarker.locked,
-      onClick
-    );
+    if(dayNight.getMode() == 'day'){
+      bridge.marker = map.addMarker(
+        bridge.lat,
+        bridge.lng,
+        bridge.title,
+        svgMarker.locked,
+        onClick
+      );
+    }else{
+      bridge.marker = map.addMarker(
+        bridge.lat,
+        bridge.lng,
+        bridge.title,
+        svgMarker.lockedNight,
+        onClick
+      );
+    }
   });
 });
 
@@ -65,7 +76,7 @@ geo.once('position', (lat, lng) => {
       // to have some kind of animation or other UI indication.
       if (bridge.marker) {
         log.info('Unlocking bridge', bridge);
-        bridge.marker.setIcon(svgMarker.unlocked);
+        bridge.marker.setIcon((dayNight.getMode() == 'day') ? svgMarker.unlocked : svgMarker.unlockedNight);
       }
     });
   });
